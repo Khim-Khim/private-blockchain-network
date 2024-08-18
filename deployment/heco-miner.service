@@ -1,0 +1,12 @@
+[Unit]
+Description=Heco miner service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/bin/sh -c '/bin/geth --bootnodes "$bootnodes" --config /app/config.toml --mine --miner.etherbase $address --unlock $address --password /app/.accountpassword'
+
+[Install]
+WantedBy=multi-user.target

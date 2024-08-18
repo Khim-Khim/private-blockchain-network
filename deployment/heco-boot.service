@@ -1,0 +1,11 @@
+[Unit]
+Description=Heco boot service
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/bin/sh -c '/bin/geth --config /app/boot-config.toml'
+
+[Install]
+WantedBy=multi-user.target

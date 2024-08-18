@@ -1,0 +1,186 @@
+version: "4"
+services:
+  geth-bootnode:
+    hostname: geth-bootnode
+    environment:
+      - nodekeyhex=08f0e1dee5c1b4645f3331a566009e41a4514b6cd28656d63d0449ecf812812b
+    build:
+      context: ./bootnode
+    ports:
+      - 30301:30301/udp
+      - "32660:32668/tcp"
+      - "32660:32668/udp"
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.101 # The miners need to know the IP address later on
+  geth-dev-miner-1:
+    hostname: geth-dev-miner-1
+    depends_on:
+      - geth-bootnode
+    environment:
+      - address=0xd562c895c835f6769fd023684c94c3eb7f1e43ac #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./miner/Dockerfile
+      args:
+        privatekey: e8b805a8cf9394ff77d37db3f05d0219e90b84d569ae0096d2e7d5ca8975c633 # Please don't do something like this in production, okay?
+        password: 123456
+    ports:
+      - 8546:8545
+      - "32668:32668/tcp"
+      - "32668:32668/udp"
+    container_name: geth-miner-1
+    volumes:
+      - eth-data-1:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.102 # The monitor needs to know this address
+
+  geth-dev-miner-2:
+    hostname: geth-dev-miner-2
+    depends_on:
+      - geth-bootnode
+    environment:
+      - address=0x59a9143fd044ab4d7dac9cfcf4e06bb5579d119c #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./miner/Dockerfile
+      args:
+        privatekey: f02e12ef0043d98b1dc939582af59ac609fbc9f4c883329f6759a299fd52ddcb # Please don't do something like this in production, okay?
+        password: 123456
+    container_name: geth-miner-2
+    ports:
+      - 8547:8545
+      - "32661:32668/tcp"
+      - "32661:32668/udp"
+    volumes:
+      - eth-data-2:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.103 # The monitor needs to know this address
+
+  geth-dev-miner-3:
+    hostname: geth-dev-miner-3
+    depends_on:
+      - geth-bootnode
+    environment:
+      - address=0x6b3b37a4f328b7fadcfee49fed98a7e2d7c3ffea #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./miner/Dockerfile
+      args:
+        privatekey: 9de51bd2267e072006de21368596c20bb32c33b0c55c7b44603eba1555c6d774 # Please don't do something like this in production, okay?
+        password: 123456
+    container_name: geth-miner-3
+    ports:
+      - 8548:8545
+      - "32662:32668/tcp"
+      - "32662:32668/udp"
+    volumes:
+      - eth-data-3:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.104 # The monitor needs to know this address
+
+  geth-dev-miner-4:
+    hostname: geth-dev-miner-4
+    depends_on:
+      - geth-bootnode
+    environment:
+      - address=0x9b3e9560a0c212e9d7439e1ba5a606f1bebeda80 #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./miner/Dockerfile
+      args:
+        privatekey: 3edfeb83f0a54769dd72bd23e0b492d4bc4a295cc6d5be69339cbb75f582e9a5 # Please don't do something like this in production, okay?
+        password: 123456
+    container_name: geth-miner-4
+    ports:
+      - 8549:8545
+      - "32663:32668/tcp"
+      - "32663:32668/udp"
+    volumes:
+      - eth-data-4:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.105 # The monitor needs to know this address
+
+  geth-dev-miner-5:
+    hostname: geth-dev-miner-5
+    depends_on:
+      - geth-bootnode
+    environment:
+      - address=0xf3f313ea2059418b56b10426a335f381d16c332d #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./miner/Dockerfile
+      args:
+        privatekey: 0d6f32376ead805aae9be6a76bd25ae0fcc6f074fba87a113bbca7dd8edfb7d6 # Please don't do something like this in production, okay?
+        password: 123456
+    container_name: geth-miner-5
+    ports:
+      - 8550:8545
+      - "32666:32668/tcp"
+      - "32666:32668/udp"
+    volumes:
+      - eth-data-5:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.106 # The monitor needs to know this address
+
+  geth-dev-node:
+    hostname: geth-dev-node
+    depends_on:
+      - geth-dev-miner-1
+    environment:
+      - address=0x2bde75fe8a6594c68348e292631f696d5c5fecf6 #derived from the private key which is passed in the args
+      - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=172.25.0.101
+    build:
+      context: .
+      dockerfile: ./node/Dockerfile
+      args:
+        privatekey: 7602ca95a60f553e040f07521d5bfa3a10b71b64aa38e60c66b802b75a1d9ada
+        password: 123456
+    container_name: geth-node
+    ports:
+      - 8545:8545
+      - 8646:8646
+      - "32669:32668/tcp"
+      - "32669:32668/udp"
+    healthcheck:
+      test: wget http://localhost:8545
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - eth-data-6:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.110
+
+networks:
+  chainnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
+
+volumes:
+  eth-data-1:
+  eth-data-2:
+  eth-data-3:
+  eth-data-4:
+  eth-data-5:
+  eth-data-6:
+
