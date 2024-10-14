@@ -5,8 +5,8 @@ ADD ./miner/testnet.json /app/genesis.json
 ADD ./miner/config.toml /app/config.toml
 
 RUN mkdir -p /app/keystore \
-&& mkdir -p /app/data \
-&& chmod 755 /app/geth
+    && mkdir -p /app/data \
+    && chmod 755 /app/geth
 
 ARG password
 ARG privatekey
@@ -23,6 +23,6 @@ ENV address=""
 ENV bootnodeId=""
 ENV bootnodeIp=""
 
-CMD sh -c 'sleep 5; cd /app; ./geth --bootnodes "enode://$bootnodeId@$bootnodeIp:0?discport=30301" --config config.toml --mine --miner.gasprice "50000000000000" --miner.etherbase $address --unlock $address --password /app/.accountpassword'
+CMD sh -c 'sleep 5; cd /app; ./geth --bootnodes "enode://$bootnodeId@$bootnodeIp:0?discport=30301" --config config.toml --mine --miner.gasprice "0" --miner.etherbase $address --unlock $address --password /app/.accountpassword'
 
 EXPOSE 8545
