@@ -1,12 +1,12 @@
 [Eth]
-NetworkId = 6660002
+NetworkId = 1
 SyncMode = "full"
 TrieCleanCacheRejournal= 300000000000
 
 [Eth.Miner]
 GasFloor = 8000000
 GasCeil = 8000000
-GasPrice = 50000000000000
+GasPrice = 0
 Recommit = 3000000000
 Noverify = false
 
